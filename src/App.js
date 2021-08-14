@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // JSXはHTMLタグライク中たちでわかりやすく表現できる言語の一つ？
 
@@ -21,6 +22,10 @@ import React from 'react';
 // { return <.../> } を埋め込むこともできる : コレクションに対してループ処理も可能（以下例）
 // リスト処理をする場合には、key propが必要 --> mapしたばあいにはindexを流用するのが一般的
 // default props ： propsのデフォルト値を設定
+
+// prop typesで型チェック （パッケージ) 違反するとブラウザのコンソールにWarningとして表示される
+// 属性を必須にすることもできる --> ~.isRequired とする ※ default値が設定されているとエラーにならない
+
 
 function App() {
 
@@ -48,8 +53,14 @@ function App() {
 const User = (props) => {
   return <div>Hi, I am {props.name}. {props.age} years old!</div>
 }
+
 User.defaultProps = {
   age: 1
+}
+
+User.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired
 }
 
 export default App;

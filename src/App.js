@@ -15,14 +15,41 @@ import React from 'react';
 //    1. class App extends Component { render () { return {} } } ※ Componentをimportする必要がある
 //    2. const App = () => {}
 
+// propsはcomponentの属性のこと props.name, props.age など、あるデータについてさんしょうできるもののこと
+// 配列や関数などなんでも指定可能。 以下例、仮引数の変数名は "props" である必要はなさそう
+
+// { return <.../> } を埋め込むこともできる : コレクションに対してループ処理も可能（以下例）
+// リスト処理をする場合には、key propが必要 --> mapしたばあいにはindexを流用するのが一般的
+// default props ： propsのデフォルト値を設定
+
 function App() {
+
+  const profiles = [
+    { name: "Taro", age: 10 },
+    { name: "Hanakol", age: 4},
+    { name: "Noname"}
+  ]
+
   return (
     <React.Fragment>
       <h1>Hello! React!</h1>
       <label htmlFor="bar">bar</label>
       <input type="text" onChange={() => {console.log("I am clicked!")}}/>
+      <User name={"Taro"} age={10} />
+      {
+        profiles.map((profile, index) => {
+          return <User name={profile.name} age={profile.age} key={index}/>
+        })
+      }
     </React.Fragment>
   );
+}
+
+const User = (props) => {
+  return <div>Hi, I am {props.name}. {props.age} years old!</div>
+}
+User.defaultProps = {
+  age: 1
 }
 
 export default App;

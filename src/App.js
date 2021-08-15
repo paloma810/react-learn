@@ -43,6 +43,10 @@ import PropTypes from 'prop-types';
 // $ mkdir src/actions; touch src/actions/index.js
 // actionを返す関数：action creater
 
+// redux基本機能の一つreducer （actionが発生したときに組み込まれているtypeによってどのように状態を遷移するかを定義したもの)
+// ↑の状態はstateという名称で扱う
+// mkdir src/reducers; touch src/reducers/index.js
+
 function App() {
   return (
     <Counter></Counter>

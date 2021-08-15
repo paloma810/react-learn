@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+
+// Frt React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // JSXはHTMLタグライク中たちでわかりやすく表現できる言語の一つ？
@@ -32,8 +33,15 @@ import PropTypes from 'prop-types';
 // this.stateでアクセス可能 > 最初は null 
 // { key: val }の形式でstateに代入することで、this.state.keyでアクセス可能
 // stateを変更するときには、this.setStateを用いる。
+//   状態を変える+関連するDOMを変更したい --> setStateをするとrender()をコールバックで呼び出してくれる（this.state = だとむり）
 
 // class components には コンストラクタを使用可能
+
+// Redux 新しい用語が出てくる。コンペイションという習慣も学ぶ
+// yarn add redux react-redux でインストール
+// actionを作成（action ... アプリの中で何が起きたかを示すデータのこと）javascriptのオブジェクトのこと,その中でtypeというキーとその値を持つことが特徴、またtypeはユニークである必要がある
+// $ mkdir src/actions; touch src/actions/index.js
+// actionを返す関数：action creater
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // JSXはHTMLタグライク中たちでわかりやすく表現できる言語の一つ？
@@ -26,41 +26,48 @@ import PropTypes from 'prop-types';
 // prop typesで型チェック （パッケージ) 違反するとブラウザのコンソールにWarningとして表示される
 // 属性を必須にすることもできる --> ~.isRequired とする ※ default値が設定されているとエラーにならない
 
+// 内部の状態 State ： 変更可能な値（mutable）, Componentは immutableな値
+// Propsは親のComponentから値を渡されたのに対して、Componentの内部でのみ使用される.
+// Class Componentでのみ使用できる
+// this.stateでアクセス可能 > 最初は null 
+// { key: val }の形式でstateに代入することで、this.state.keyでアクセス可能
+// stateを変更するときには、this.setStateを用いる。
+
+// class components には コンストラクタを使用可能
 
 function App() {
-
-  const profiles = [
-    { name: "Taro", age: 10 },
-    { name: "Hanakol", age: 4},
-    { name: "Noname"}
-  ]
-
   return (
-    <React.Fragment>
-      <h1>Hello! React!</h1>
-      <label htmlFor="bar">bar</label>
-      <input type="text" onChange={() => {console.log("I am clicked!")}}/>
-      <User name={"Taro"} age={10} />
-      {
-        profiles.map((profile, index) => {
-          return <User name={profile.name} age={profile.age} key={index}/>
-        })
-      }
-    </React.Fragment>
+    <Counter></Counter>
   );
 }
 
-const User = (props) => {
-  return <div>Hi, I am {props.name}. {props.age} years old!</div>
-}
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+    console.log(this.state)
+    this.state = { count: 0 }
+  }
 
-User.defaultProps = {
-  age: 1
-}
+  handlePlusButton = () => {
+    console.log("plus 1")
+    this.setState({count : this.state.count + 1})
+  }
 
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired
+  handleMinusButton = () => {
+    console.log("minus 1")
+    this.setState({count : this.state.count - 1})
+  }
+
+  render () {
+    console.log(this.state)
+    return (
+      <React.Fragment>
+        <div>counter: { this.state.count }</div>
+        <button onClick={this.handlePlusButton}>count_up</button>
+        <button onClick={this.handleMinusButton}>count_down</button>
+      </React.Fragment>
+    )
+  }
 }
 
 export default App;

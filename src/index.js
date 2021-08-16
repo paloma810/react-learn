@@ -12,14 +12,14 @@ import reportWebVitals from './reportWebVitals';
 //アプリの中で唯一無二なものになる
 //アプリ内部のstateはここに集約される
 //外の全階層のコンポーネントで参照できる（引数にreducerを指定する）
-const store = createStore(reduce)
+const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <App />
-    </React.StrictMode>,
-  </Provider>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -1,6 +1,8 @@
 
-// Frt React, { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { increment, decrement } from '../actions'
 
 // JSXはHTMLタグライク中たちでわかりやすく表現できる言語の一つ？
 
@@ -50,41 +52,57 @@ import PropTypes from 'prop-types';
 // reducerを基にstoreを作る。storeがアプリの全コンポーネントで使用できるような仕込みを行う。
 // storeを作るための関数：createStore from Redux package
 // 作成したstoreを全コンポーネントに渡すもの：Provider from react-redux
+
+// connect関数を使用して、stateやactionとコンポーネントの関連付けを作って、ビューのイベントで状態を遷移して、遷移後の状態を画面に描画する
 //
 
-function App() {
-  return (
-    <Counter></Counter>
-  );
-}
-
-class Counter extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
     console.log(this.state)
-    this.state = { count: 0 }
+    // この働きはreduxでは、reducerが担う
+    //this.state = { count: 0 }
   }
 
   handlePlusButton = () => {
     console.log("plus 1")
-    this.setState({count : this.state.count + 1})
+    // reduxでは、actioncreaterで処理の名称を確保して、そのアクションクリエータからreducer内で適切な状態変化を呼ぶことで同じことをしている。。
+    //this.setState({count : this.state.count + 1})
   }
 
   handleMinusButton = () => {
     console.log("minus 1")
-    this.setState({count : this.state.count - 1})
+    //this.setState({count : this.state.count - 1})
   }
 
   render () {
-    console.log(this.state)
+    // propsで状態やactionを渡すので
+    const props = this.props
     return (
       <React.Fragment>
-        <div>counter: { this.state.count }</div>
-        <button onClick={this.handlePlusButton}>count_up</button>
-        <button onClick={this.handleMinusButton}>count_down</button>
+        <div>value: { props.value }</div>
+        <button onClick={props.increment}>count_up</button>
+        <button onClick={props.decrement}>count_down</button>
       </React.Fragment>
     )
   }
 }
 
-export default App;
+// stateの情報からコンポーネントに必要な情報を取り出してcomponent内のpropsにマッピングする関数
+// 引数には状態のトップレベルを示すstateを与える
+const mapStateToProps = state => ({ value: state.count.value })
+
+// あるアクションが発生したときにreducerにtypeに応じた状態遷移を行わせるもの
+// incrementをキーにincrement関数をkeyにもつdispatch関数（decrement版も）を定義
+//const mapDispatchToProps = dispatch => ({
+//  increment: () => dispatch(increment()),
+//  decrement: () => dispatch(decrement())
+//})
+
+// 以下のようにかんたんにも書ける
+const mapDispatchToProps = ({ increment, decrement })
+
+
+// stateやactionをcomponentに関連付ける
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+

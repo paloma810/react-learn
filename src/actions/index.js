@@ -5,8 +5,8 @@ export const DECREMENT = 'DECREMENT'
 // 以下はaction create（actionを返す関数）
 export const increment = () => ({
   type: INCREMENT
-})
+});
 
-exoprt const decrement = () => ({
+export const decrement = () => ({
   type: DECREMENT
-})
+});

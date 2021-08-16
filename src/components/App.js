@@ -47,6 +47,11 @@ import PropTypes from 'prop-types';
 // ↑の状態はstateという名称で扱う
 // mkdir src/reducers; touch src/reducers/index.js
 
+// reducerを基にstoreを作る。storeがアプリの全コンポーネントで使用できるような仕込みを行う。
+// storeを作るための関数：createStore from Redux package
+// 作成したstoreを全コンポーネントに渡すもの：Provider from react-redux
+//
+
 function App() {
   return (
     <Counter></Counter>
